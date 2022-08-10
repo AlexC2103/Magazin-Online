@@ -36,12 +36,12 @@
                 <div class="row">
                     <img src="../images/parasolar.jpg" alt="" class="col">
                     <div class="col mt-5">
-                        <h4 class="fw-bold"> Parasolar auto 197 x 99 cm </h4> <br>
-                        <h5>35.00 RON</h5>
+                        <h4 class="fw-bold" id="parasolarTitlu">Parasolar auto 197 x 99 cm</h4> <br>
+                        <h5 id="parasolarPret">35.00 RON</h5>
                         <p class="text-secondary"> TVA inclus;  Costurile de livrare nu sunt incluse</p>
                         <form onsubmit="return false">
-                            <input type="number" class="numberOfItems">
-                            <button class="btn bg-dark text-white addToCart" type="submit">Adaugă în coș</button>
+                            <input type="number" class="numberOfItems" id="parasolarCantitate">
+                            <button class="btn bg-dark text-white addToCart" type="submit" id="parasolar" onclick="addProduct(this.id)">Adaugă în coș</button>
                         </form>
                         <br>
                         <p> Disponibil în stoc</p>

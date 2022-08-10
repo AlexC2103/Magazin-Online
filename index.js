@@ -45,6 +45,10 @@ class Cart {
     getPlata() {
         return this.plata;
     }
+
+    getProductList() {
+        return this.productList;
+    }
 }
 
 class Product {
@@ -52,6 +56,18 @@ class Product {
         this.name = name;
         this.id = id;
         this.price = price;
+    }
+}
+
+
+class ProductCatalog {
+    constructor() {
+        this.productCatalog = new Map();
+    }
+
+    addProduct(product) {
+        if(this.productCatalog.has(product))
+            this.productCatalog.set(product);
     }
 }
 
@@ -71,43 +87,55 @@ class Plata {
     constructor() { }
 }
 
+function addProduct(id) {
+    cos.addProduct(id, parseInt(document.getElementById(id + 'Cantitate').value));
+    console.log(cos);
+    console.log(catalog);
+}
+
+
+
+
+
 cos = new Cart();
-adresa = new Address();
-livrare = new Livrare();
+adresaLivrare = new Address();
+adresaFacturare = new Address();
+livrare1 = new Livrare();
 factura1 = new Facturare();
-factura2 = new Facturare();
 plata1 = new Plata();
+catalog = new ProductCatalog();
 
-cos.setAddress(adresa);
+product1 = new Product('Parasolar Auto', 'parasolar', 50);
+catalog.addProduct(product1);
 
-cos.addProduct(5, 2);
-cos.addProduct(5, 3);
-cos.addProduct(2, 1);
-cos.deleteProduct(5);
+adresaLivrare.judet = 'Dolj';
+adresaLivrare.oras = 'Craiova';
+adresaLivrare.strada = 'Sfintii Apostoli';
 
-adresa.judet = 'Dolj';
-adresa.oras = 'Craiova';
-adresa.strada = 'Sfintii Apostoli';
+livrare1.adresa = adresaLivrare;
+livrare1.detalii = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
 
-livrare.destinatie = adresa;
+adresaFacturare.judet = 'Bucuresti';
 
-factura1.CNP = '12345678';
-factura1.adresaFacturare = adresa;
+factura1.cui = '6859662';
+factura1.adresa = adresaFacturare;
 
-factura2.CUI = '6859662';
-factura2.adresaFacturare = adresa;
-
-plata1.tip = 'Card';
+plata1.tip = 'card';
 plata1.numarCard = '4469 5350 2910 6378';
 plata1.lunaExpirare = '08';
 plata1.anExpirare = '25';
 plata1.numeDetinator = 'Mihai Alexandru'
 plata1.cvv = '327';
 
-console.log(cos);
+cos.setLivrare(livrare1);
+cos.setFacturare(factura1);
+cos.setPlata(plata1);
 
-/*console.log(livrare);
-console.log(adresa);
-console.log(factura1);
-console.log(factura2);
-console.log(plata1); */
+cos.addProduct('mere', 2);
+cos.addProduct('capsuni', 2);
+cos.addProduct('mere', 1);
+cos.addProduct('nuci', 10);
+cos.deleteProduct('nuci');
+
+//console.log(cos);
+//console.log(catalog);
