@@ -9,6 +9,9 @@ class Cart {
         else
             this.productList.set(id, quantity);
     }
+    getNumberOfItems() {
+        return this.productList.size;
+    }
 
     deleteProduct(id) {
         this.productList.delete(id);
@@ -89,10 +92,9 @@ class Plata {
 
 function addProduct(id) {
     cos.addProduct(id, parseInt(document.getElementById(id + 'Cantitate').value));
+    document.getElementById('numberOfItems').innerHTML = cos.getNumberOfItems();
     console.log(cos);
-    console.log(catalog);
 }
-
 
 
 
@@ -104,9 +106,6 @@ livrare1 = new Livrare();
 factura1 = new Facturare();
 plata1 = new Plata();
 catalog = new ProductCatalog();
-
-product1 = new Product('Parasolar Auto', 'parasolar', 50);
-catalog.addProduct(product1);
 
 adresaLivrare.judet = 'Dolj';
 adresaLivrare.oras = 'Craiova';
@@ -130,12 +129,6 @@ plata1.cvv = '327';
 cos.setLivrare(livrare1);
 cos.setFacturare(factura1);
 cos.setPlata(plata1);
-
-cos.addProduct('mere', 2);
-cos.addProduct('capsuni', 2);
-cos.addProduct('mere', 1);
-cos.addProduct('nuci', 10);
-cos.deleteProduct('nuci');
 
 //console.log(cos);
 //console.log(catalog);
