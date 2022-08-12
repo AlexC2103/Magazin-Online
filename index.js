@@ -93,10 +93,8 @@ class Plata {
 function addProduct(id) {
     cos.addProduct(id, parseInt(document.getElementById(id + 'Cantitate').value));
     document.getElementById('numberOfItems').innerHTML = cos.getNumberOfItems();
-    //console.log(cos);
-    localStorage.setItem('cart', 'proiectMagazin' +
-        '');
-    console.log(localStorage.getItem('cart'));
+
+    console.log(cos);
 }
 
 
