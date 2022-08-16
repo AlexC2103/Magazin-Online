@@ -14,16 +14,42 @@ class Cart {
     }
 
     unserialize(content) {
-       if (content.hasOwnProperty("livrare")) {
-           const livrare = new Livrare();
-           const adresa = new Address();
+        if (content.hasOwnProperty("livrare")) {
+            const livrare = new Livrare();
+            const adresa = new Address();
 
-           livrare.detalii = content.livrare.detalii;
-           adresa.unserialize(content.livrare.adresa);
-           livrare.adresa = adresa;
-           this.setLivrare(livrare);
+            livrare.detalii = content.livrare.detalii;
+            livrare.adresa = adresa;
 
-       }
+            adresa.unserialize(content.livrare.adresa);
+
+            this.setLivrare(livrare);
+        }
+
+        if(content.hasOwnProperty("facturare")) {
+            const facturare = new Facturare();
+            const adresa = new Address();
+
+            facturare.cui = content.facturare.cui;
+            facturare.adresa = adresa;
+
+            adresa.unserialize(content.facturare.adresa);
+
+            this.setFacturare(facturare);
+        }
+
+        if(content.hasOwnProperty("plata")) {
+            const plata = new Plata();
+
+            plata.tip = content.plata.tip;
+            plata.numarCard = content.plata.numarCard;
+            plata.lunaExpirare = content.plata.lunaExpirare;
+            plata.anExpirare = content.plata.anExpirare;
+            plata.numeDetinator = content.plata.numeDetinator;
+            plata.cvv = content.plata.cvv;
+
+            this.setPlata(plata);
+        }
     }
 
     deleteProduct(id) {
@@ -143,14 +169,20 @@ if (localStorage.getItem('cart') == null) {
     cos.setPlata(plata1);
 
     console.log(cos);
-    localStorage.setItem('cart', JSON.stringify(cos));
+    localStorage.setItem('cart', JSON.stringify(cos, replacer));
     console.log(JSON.stringify(cos));
 } else {
-    console.log('else');
-    cosContent = JSON.parse(localStorage.getItem('cart'));
+    console.log('hello');
+    console.log(localStorage.getItem('cart'));
+
+    cosContent = JSON.parse(localStorage.getItem('cart'), reviver);
+
     cos = new Cart();
     cos.unserialize(cosContent);
+    cos.productList = cosContent.productList;
     console.log(cos);
+
+    document.getElementsByClassName('numberOfItems')[0].innerHTML = cos.getNumberOfItems();
 }
 
 function showNumberOfItems() {
@@ -159,9 +191,30 @@ function showNumberOfItems() {
 
 function addProduct(id) {
 
+
     cos.addProduct(id, parseInt(document.getElementById(id + 'Cantitate').value));
-    document.getElementById('numberOfItems').innerHTML = cos.getNumberOfItems();
+    document.getElementsByClassName('numberOfItems')[0].innerHTML = cos.getNumberOfItems();
 
-    localStorage.setItem('cart', JSON.stringify(cos));
+    localStorage.setItem('cart', JSON.stringify(cos, replacer));
 
+}
+
+function replacer(key, value) {
+    if(value instanceof Map) {
+        return {
+            dataType: 'Map',
+            value: Array.from(value.entries()), // or with spread: value: [...value]
+        };
+    } else {
+        return value;
+    }
+}
+
+function reviver(key, value) {
+    if(typeof value === 'object' && value !== null) {
+        if (value.dataType === 'Map') {
+            return new Map(value.value);
+        }
+    }
+    return value;
 }
