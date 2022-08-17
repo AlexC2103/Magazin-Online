@@ -2,6 +2,12 @@
     width: 40px;
     height: 35px;
 }
-.addToCart {
 
+.prodQuant {
+    width: 40px;
+    border: none;
+}
+
+.plusMinus {
+    width: 35px;
 }

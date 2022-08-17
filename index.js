@@ -108,8 +108,9 @@ class ProductCatalog {
     }
 
     addProduct(product) {
-        if(this.productCatalog.has(product))
-            this.productCatalog.set(product);
+        if (this.productCatalog.has(product) == false) {
+            this.productCatalog
+        }
     }
 }
 
@@ -172,8 +173,6 @@ if (localStorage.getItem('cart') == null) {
     localStorage.setItem('cart', JSON.stringify(cos, replacer));
     console.log(JSON.stringify(cos));
 } else {
-    console.log('hello');
-    console.log(localStorage.getItem('cart'));
 
     cosContent = JSON.parse(localStorage.getItem('cart'), reviver);
 
@@ -217,4 +216,47 @@ function reviver(key, value) {
         }
     }
     return value;
+}
+
+function loadCart() {
+
+    let totalPrice = 0;
+    cos.productList.forEach((cantitate, id) => {
+        let tr = document.createElement('tr');
+        let td1 = document.createElement('td');
+        let td2 = document.createElement('td');
+        let td3 = document.createElement('td');
+
+        let minus = document.createElement('button');
+        minus.classList.add("btn");
+        minus.classList.add("btn-secondary");
+        minus.classList.add("plusMinus");
+        minus.innerHTML = '-';
+
+        let plus = document.createElement('button');
+        plus.classList.add("btn");
+        plus.classList.add("btn-secondary");
+        plus.classList.add("plusMinus")
+        plus.innerHTML = '+';
+
+        let p = document.createElement('button');
+        p.innerHTML = cantitate;
+        p.classList.add("bg-white");
+        p.classList.add("prodQuant");
+        p.classList.add("mx-1");
+
+        td1.innerHTML = id;
+        tr.appendChild(td1);
+
+        td2.appendChild(minus);
+        td2.appendChild(p);
+        td2.appendChild(plus);
+        tr.appendChild(td2);
+
+        td3.innerHTML = 'PRET';
+        tr.appendChild(td3);
+
+        document.getElementById('cartList').appendChild(tr);
+
+    });
 }
