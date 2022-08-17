@@ -94,25 +94,33 @@ class Cart {
 }
 
 class Product {
-    constructor(name, id, price) {
+    constructor(name, price) {
         this.name = name;
-        this.id = id;
         this.price = price;
     }
 }
-
 
 class ProductCatalog {
     constructor() {
         this.productCatalog = new Map();
     }
 
-    addProduct(product) {
-        if (this.productCatalog.has(product) == false) {
-            this.productCatalog
+    addProduct(id, product) {
+        if (this.productCatalog.has(id) == false) {
+            this.productCatalog.set(id, product);
         }
     }
 }
+
+catalog = new ProductCatalog();
+Parasolar = new Product('Parasolar auto 197 x 99 cm', 35); catalog.addProduct('parasolar', Parasolar);
+Covorase = new Product('Set Covorașe Auto Universale', 85); catalog.addProduct('covorase', Covorase);
+Modulator = new Product('Modulator FM Bluetooth', 120); catalog.addProduct('modulator', Modulator);
+CameraBord = new Product('Camera de bord auto DVR Full HD', 250); catalog.addProduct('cameraBord', CameraBord);
+OdorizantAuto = new Product('Odorizant Auto Baseus', 70); catalog.addProduct('odorizantAuto', OdorizantAuto);
+
+
+console.log(catalog);
 
 class Address {
     constructor() { }
@@ -144,7 +152,6 @@ if (localStorage.getItem('cart') == null) {
     livrare1 = new Livrare();
     factura1 = new Facturare();
     plata1 = new Plata();
-    catalog = new ProductCatalog();
 
     adresaLivrare.judet = 'Dolj';
     adresaLivrare.oras = 'Craiova';
@@ -184,12 +191,7 @@ if (localStorage.getItem('cart') == null) {
     document.getElementsByClassName('numberOfItems')[0].innerHTML = cos.getNumberOfItems();
 }
 
-function showNumberOfItems() {
-
-}
-
 function addProduct(id) {
-
 
     cos.addProduct(id, parseInt(document.getElementById(id + 'Cantitate').value));
     document.getElementsByClassName('numberOfItems')[0].innerHTML = cos.getNumberOfItems();
@@ -239,11 +241,10 @@ function loadCart() {
         plus.classList.add("plusMinus")
         plus.innerHTML = '+';
 
-        let p = document.createElement('button');
+        let p = document.createElement('p');
+        p.classList.add("mx-3");
+        p.classList.add("my-auto");
         p.innerHTML = cantitate;
-        p.classList.add("bg-white");
-        p.classList.add("prodQuant");
-        p.classList.add("mx-1");
 
         td1.innerHTML = id;
         tr.appendChild(td1);
@@ -251,6 +252,8 @@ function loadCart() {
         td2.appendChild(minus);
         td2.appendChild(p);
         td2.appendChild(plus);
+        td2.classList.add("d-flex");
+
         tr.appendChild(td2);
 
         td3.innerHTML = 'PRET';
@@ -260,3 +263,4 @@ function loadCart() {
 
     });
 }
+
