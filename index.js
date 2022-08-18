@@ -112,15 +112,30 @@ class ProductCatalog {
     }
 }
 
-catalog = new ProductCatalog();
-Parasolar = new Product('Parasolar auto 197 x 99 cm', 35); catalog.addProduct('parasolar', Parasolar);
-Covorase = new Product('Set Covorașe Auto Universale', 85); catalog.addProduct('covorase', Covorase);
-Modulator = new Product('Modulator FM Bluetooth', 120); catalog.addProduct('modulator', Modulator);
-CameraBord = new Product('Camera de bord auto DVR Full HD', 250); catalog.addProduct('cameraBord', CameraBord);
-OdorizantAuto = new Product('Odorizant Auto Baseus', 70); catalog.addProduct('odorizantAuto', OdorizantAuto);
+if (localStorage.getItem('catalog') == null) {
+    catalog = new ProductCatalog();
 
+    Parasolar = new Product('Parasolar auto 197 x 99 cm', 35);
+    catalog.addProduct('parasolar', Parasolar);
 
-console.log(catalog);
+    Covorase = new Product('Set Covorașe Auto Universale', 85);
+    catalog.addProduct('covorase', Covorase);
+
+    Modulator = new Product('Modulator FM Bluetooth', 120);
+    catalog.addProduct('modulator', Modulator);
+
+    CameraBord = new Product('Camera de bord auto DVR Full HD', 250);
+    catalog.addProduct('cameraBord', CameraBord);
+
+    OdorizantAuto = new Product('Odorizant Auto Baseus', 70);
+    catalog.addProduct('odorizantAuto', OdorizantAuto);
+
+    localStorage.setItem('catalog', JSON.stringify(catalog, replacer));
+} else {
+    catalog = new ProductCatalog();
+    catalog = JSON.parse(localStorage.getItem('catalog'), reviver);
+   //console.log(catalog);
+}
 
 class Address {
     constructor() { }
@@ -246,7 +261,7 @@ function loadCart() {
         p.classList.add("my-auto");
         p.innerHTML = cantitate;
 
-        td1.innerHTML = id;
+        td1.innerHTML = catalog.productCatalog.get(id).name;
         tr.appendChild(td1);
 
         td2.appendChild(minus);
@@ -256,9 +271,12 @@ function loadCart() {
 
         tr.appendChild(td2);
 
-        td3.innerHTML = 'PRET';
+        td3.innerHTML = catalog.productCatalog.get(id).price * cantitate + ' Lei';
+        totalPrice += catalog.productCatalog.get(id).price * cantitate
         tr.appendChild(td3);
 
+        document.getElementById('pretProduse').innerHTML = totalPrice + ' Lei';
+        document.getElementById('totalComanda').innerHTML = totalPrice   + 25 + ' Lei';
         document.getElementById('cartList').appendChild(tr);
 
     });
