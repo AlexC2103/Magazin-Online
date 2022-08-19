@@ -26,7 +26,7 @@
             <div class="col-2 bg-dark text-white d-flex text-center p-2 ">
                 <ul class="nav nav-pills flex-column mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Acasă</a>
+                        <a class="nav-link" aria-current="page" href="index.html">Acasă</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="accesorii.html">Accesorii</a>
@@ -40,44 +40,49 @@
                 </ul>
             </div>
             <div class="col-10 bg-light">
-                <div class="ms-5 mt-5">
-                    <h3 class="ms-4 my-4 fw-bold">Detalii Livrare</h3>
-                    <form onsubmit="storeDelivery()" action="facturare.html">
+                <div class="ms-5 mt-5 w-25">
+                    <h3 class="fw-bold"> Informații de plată </h3> <br>
+                    <h5 class="mb-1">Carduri Acceptate</h5>
+                    <div class="icon-container ms-2 mb-3">
+                        <i class="fa fa-cc-visa" style="color:navy;"></i>
+                        <i class="fa fa-cc-amex" style="color:blue;"></i>
+                        <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                        <i class="fa fa-cc-discover" style="color:orange;"></i>
+                    </div>
+                    <form onsubmit="storePayment()" action="sumar.html">
+                        <div class="mb-3">
+                            <label for="cardNumberInput" class="form-label">Număr Card</label>
+                            <input required type="text" class="form-control" id="cardNumberInput" placeholder="ex. 1234-5678-9012-3456">
+                        </div>
                         <div class="d-flex">
-                            <div>
-                                <div class="mb-3">
-                                    <label for="addressInput" class="form-label">Adresă Livrare</label>
-                                    <input required type="text" class="form-control" id="addressInput" placeholder="stradă, număr, (bloc, scară)">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="cityInput" class="form-label">Oraș</label>
-                                    <input required type="text" class="form-control" id="cityInput" placeholder="ex. Craiova, Timișoara">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="countyInput" class="form-label">Județ / Sector</label>
-                                    <input required type="text" class="form-control" id="countyInput" placeholder="ex. Dolj, Olt">
-                                </div>
+                            <div class="mb-3 me-2">
+                                <label for="expMonthInput" class="form-label">Lună</label>
+                                <input required type="text" class="form-control" id="expMonthInput" placeholder="09">
                             </div>
-                            <div class="ms-5">
-                                <div class="mb-3">
-                                    <label for="zipCodeInput" class="form-label">Cod poștal</label>
-                                    <input required type="text" class="form-control" id="zipCodeInput" placeholder="ex. 201314">
-                                </div>
-                                <div class="mb-3 h-50">
-                                    <label for="detailsInput" class="form-label">Mai multe informații</label>
-                                    <input type="text" class="form-control h-100 " id="detailsInput" placeholder="Informații pentru curier...">
-                                </div>
+                            <div class="mb-3 me-2">
+                                <label for="expYearInput" class="form-label">An</label>
+                                <input required type="text" class="form-control" id="expYearInput" placeholder="2028">
+                            </div>
+                            <div class="mb-3 mx-auto w-75">
+                                <label for="cvvInput" class="form-label">CVV</label>
+                                <input required type="text" class="form-control" id="cvvInput" placeholder="352">
                             </div>
                         </div>
-                        <div class="d-flex w-50 align-items-center justify-content-center mt-2">
-                            <input type="submit" class="btn btn-primary text-center" value="Mai departe catre facturare" href="facturare.html">
+                        <div class="mb-5">
+                            <label for="holderNameInput" class="form-label">Nume deținător card</label>
+                            <input required type="text" class="form-control" id="holderNameInput" placeholder="ex. Nume Prenume">
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <input type="submit" class="btn btn-primary text-center" value="Finalizare Comandă">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="index.js"> </script>
+    <script src="https://kit.fontawesome.com/e66e00271b.js" crossorigin="anonymous"></script>
 </body>
 </html>

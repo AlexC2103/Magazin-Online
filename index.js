@@ -30,7 +30,9 @@ class Cart {
             const facturare = new Facturare();
             const adresa = new Address();
 
-            facturare.cui = content.facturare.cui;
+            facturare.identityNumber = content.facturare.identityNumber;
+            facturare.numeCumparator = content.facturare.numeCumparator;
+            facturare.email = content.facturare.email;
             facturare.adresa = adresa;
 
             adresa.unserialize(content.facturare.adresa);
@@ -45,8 +47,8 @@ class Cart {
             plata.numarCard = content.plata.numarCard;
             plata.lunaExpirare = content.plata.lunaExpirare;
             plata.anExpirare = content.plata.anExpirare;
-            plata.numeDetinator = content.plata.numeDetinator;
             plata.cvv = content.plata.cvv;
+            plata.numeDetinator = content.plata.numeDetinator;
 
             this.setPlata(plata);
         }
@@ -144,6 +146,7 @@ class Address {
         this.judet = adresa.judet;
         this.oras = adresa.oras;
         this.strada = adresa.strada;
+        this.codPostal = adresa.codPostal;
     }
 }
 
@@ -160,36 +163,8 @@ class Plata {
 }
 //localStorage.clear();
 if (localStorage.getItem('cart') == null) {
+
     cos = new Cart();
-
-    adresaLivrare = new Address();
-    adresaFacturare = new Address();
-    livrare1 = new Livrare();
-    factura1 = new Facturare();
-    plata1 = new Plata();
-
-    adresaLivrare.judet = 'Dolj';
-    adresaLivrare.oras = 'Craiova';
-    adresaLivrare.strada = 'Sfintii Apostoli';
-
-    livrare1.adresa = adresaLivrare;
-    livrare1.detalii = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.';
-
-    adresaFacturare.judet = 'Bucuresti';
-
-    factura1.cui = '6859662';
-    factura1.adresa = adresaFacturare;
-
-    plata1.tip = 'card';
-    plata1.numarCard = '4469 5350 2910 6378';
-    plata1.lunaExpirare = '08';
-    plata1.anExpirare = '25';
-    plata1.numeDetinator = 'Mihai Alexandru'
-    plata1.cvv = '327';
-
-    cos.setLivrare(livrare1);
-    cos.setFacturare(factura1);
-    cos.setPlata(plata1);
 
     console.log(cos);
     localStorage.setItem('cart', JSON.stringify(cos, replacer));
@@ -201,6 +176,7 @@ if (localStorage.getItem('cart') == null) {
     cos = new Cart();
     cos.unserialize(cosContent);
     cos.productList = cosContent.productList;
+
     console.log(cos);
 
     document.getElementsByClassName('numberOfItems')[0].innerHTML = cos.getNumberOfItems();
@@ -282,3 +258,58 @@ function loadCart() {
     });
 }
 
+function storeDelivery() {
+    adresaLivrare = new Address();
+    livrare = new Livrare();
+
+    adresaLivrare.strada = document.getElementById('addressInput').value;
+    adresaLivrare.oras = document.getElementById('cityInput').value;
+    adresaLivrare.judet = document.getElementById('countyInput').value;
+    adresaLivrare.codPostal = document.getElementById('zipCodeInput').value;
+
+    livrare.detalii = document.getElementById('detailsInput').value;
+    livrare.adresa = adresaLivrare;
+
+    cosContent = JSON.parse(localStorage.getItem('cart'), reviver);
+    cos.unserialize(cosContent);
+    cos.setLivrare(livrare);
+
+    localStorage.setItem('cart', JSON.stringify(cos, replacer));
+
+}
+
+function storeBilling() {
+    facturare = new Facturare();
+    adresaFacturare = new Address();
+
+    adresaFacturare.strada = document.getElementById('billingAddressInput').value;
+
+    facturare.adresa = adresaFacturare;
+    facturare.identityNumber = document.getElementById('identityNumberInput').value;
+    facturare.email = document.getElementById('emailInput').value;
+    facturare.numeCumparator = document.getElementById('nameInput').value;
+
+    cosContent = JSON.parse(localStorage.getItem('cart'), reviver);
+
+    cos.unserialize(cosContent);
+    cos.setFacturare(facturare);
+    console.log(facturare);
+    localStorage.setItem('cart', JSON.stringify(cos, replacer));
+}
+
+function storePayment() {
+    plata = new Plata();
+
+    plata.numarCard = document.getElementById('cardNumberInput').value;
+    plata.lunaExpirare = document.getElementById('expMonthInput').value;
+    plata.anExpirare = document.getElementById('expYearInput').value;
+    plata.cvv = document.getElementById('cvvInput').value;
+    plata.numeDetinator = document.getElementById('holderNameInput').value;
+
+    cosContent = JSON.parse(localStorage.getItem('cart'), reviver);
+
+    cos.unserialize(cosContent);
+    cos.setPlata(plata);
+
+    localStorage.setItem('cart', JSON.stringify(cos, replacer));
+}
