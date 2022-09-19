@@ -258,6 +258,70 @@ function loadCart() {
     });
 }
 
+function loadSumar() {
+    let i = 0;
+    let pretTotal = 0;
+    cos.productList.forEach((cantitate, id) => {
+        i++;
+        let tr = document.createElement('tr');
+        let tdNumarProdus = document.createElement('td');
+        let tdNumeProdus = document.createElement('td');
+
+        let tdCantitate = document.createElement('td');
+        tdCantitate.classList.add("text-center");
+
+        let tdPretUnitar = document.createElement('td');
+        tdPretUnitar.classList.add("text-center");
+
+        let tdPretTotal = document.createElement('td');
+        tdPretTotal.classList.add("text-center", "fw-bold");
+
+        tdNumarProdus.innerHTML = i + ". ";
+        tr.appendChild(tdNumarProdus);
+
+        tdNumeProdus.innerHTML = catalog.productCatalog.get(id).name;
+        tr.appendChild(tdNumeProdus);
+
+        tdCantitate.innerHTML = cantitate;
+        tr.appendChild(tdCantitate);
+
+        tdPretUnitar.innerHTML = catalog.productCatalog.get(id).price + ".00 Lei";
+        tr.appendChild(tdPretUnitar);
+
+        pretTotal += catalog.productCatalog.get(id).price * cantitate;
+        tdPretTotal.innerHTML = catalog.productCatalog.get(id).price * cantitate + ".00 Lei";
+        tr.appendChild(tdPretTotal);
+
+        document.getElementById('sumarComanda').appendChild(tr);
+
+    });
+    let tr = document.createElement('tr');
+    let td1 = document.createElement('td');
+    let td2 = document.createElement('td');
+    let td3 = document.createElement('td');
+    tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+
+    tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+
+
+    let numeContact = document.createElement('p');
+    numeContact.classList.add('text-black', 'dateLivrare');
+    numeContact.innerHTML = cos.facturare.numeCumparator;
+    document.getElementById('numeContact').appendChild(numeContact);
+
+    let adresaLivrare = document.createElement('p');
+    adresaLivrare.classList.add('text-black', 'dateLivrare');
+    adresaLivrare.innerHTML = cos.livrare.adresa.strada + ",  " +
+                              cos.livrare.adresa.oras + ", jud.  " +
+                              cos.livrare.adresa.judet;
+    document.getElementById('adresaLivrare').appendChild(adresaLivrare);
+
+    let adresaEmail = document.createElement('p');
+    adresaEmail.classList.add('text-black', 'dateLivrare');
+    adresaEmail.innerHTML = cos.facturare.email;
+    document.getElementById('adresaEmail').appendChild(adresaEmail);
+}
+
 function storeDelivery() {
     adresaLivrare = new Address();
     livrare = new Livrare();
