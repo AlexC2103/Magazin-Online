@@ -33,6 +33,7 @@ class Cart {
             facturare.identityNumber = content.facturare.identityNumber;
             facturare.numeCumparator = content.facturare.numeCumparator;
             facturare.email = content.facturare.email;
+            facturare.phoneNumber = content.facturare.phoneNumber;
             facturare.adresa = adresa;
 
             adresa.unserialize(content.facturare.adresa);
@@ -299,10 +300,11 @@ function loadSumar() {
     let td1 = document.createElement('td');
     let td2 = document.createElement('td');
     let td3 = document.createElement('td');
+
+    td1.innerHTML = '1'; td2.innerHTML = '2'; td3.innerHTML = '3';
     tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
 
-    tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
-
+    document.getElementById('sumarComanda').appendChild(tr);
 
     let numeContact = document.createElement('p');
     numeContact.classList.add('text-black', 'dateLivrare');
@@ -316,10 +318,16 @@ function loadSumar() {
                               cos.livrare.adresa.judet;
     document.getElementById('adresaLivrare').appendChild(adresaLivrare);
 
+    let numarTelefon = document.createElement('p');
+    numarTelefon.classList.add('text-black', 'dateLivrare');
+    numarTelefon.innerHTML = cos.facturare.phoneNumber;
+    document.getElementById('numarTelefon').appendChild(numarTelefon);
+
     let adresaEmail = document.createElement('p');
     adresaEmail.classList.add('text-black', 'dateLivrare');
     adresaEmail.innerHTML = cos.facturare.email;
     document.getElementById('adresaEmail').appendChild(adresaEmail);
+
 }
 
 function storeDelivery() {
@@ -351,6 +359,7 @@ function storeBilling() {
     facturare.adresa = adresaFacturare;
     facturare.identityNumber = document.getElementById('identityNumberInput').value;
     facturare.email = document.getElementById('emailInput').value;
+    facturare.phoneNumber = document.getElementById('phoneInput').value;
     facturare.numeCumparator = document.getElementById('nameInput').value;
 
     cosContent = JSON.parse(localStorage.getItem('cart'), reviver);
