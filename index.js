@@ -281,6 +281,7 @@ function loadSumar() {
         tr.appendChild(tdNumarProdus);
 
         tdNumeProdus.innerHTML = catalog.productCatalog.get(id).name;
+        tdNumeProdus.classList.add('fw-bold');
         tr.appendChild(tdNumeProdus);
 
         tdCantitate.innerHTML = cantitate;
