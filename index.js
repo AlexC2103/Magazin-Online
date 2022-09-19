@@ -296,15 +296,8 @@ function loadSumar() {
         document.getElementById('sumarComanda').appendChild(tr);
 
     });
-    let tr = document.createElement('tr');
-    let td1 = document.createElement('td');
-    let td2 = document.createElement('td');
-    let td3 = document.createElement('td');
-
-    td1.innerHTML = '1'; td2.innerHTML = '2'; td3.innerHTML = '3';
-    tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
-
-    document.getElementById('sumarComanda').appendChild(tr);
+    document.getElementById('pretTotal').innerHTML = pretTotal + '.00 Lei';
+    document.getElementById('totalComanda').innerHTML = pretTotal + 25 + '.00 Lei';
 
     let numeContact = document.createElement('p');
     numeContact.classList.add('text-black', 'dateLivrare');
