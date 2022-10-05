@@ -380,3 +380,9 @@ function storePayment() {
 
     localStorage.setItem('cart', JSON.stringify(cos, replacer));
 }
+
+function storeOrder() {
+    console.log(JSON.stringify(cos, replacer));
+    document.getElementById('hiddenInput').value = JSON.stringify(cos, replacer);
+    
+}

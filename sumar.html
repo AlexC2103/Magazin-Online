@@ -80,11 +80,24 @@
                         <p class="text-secondary d-flex mb-0 pb-0" id="adresaEmail">Adresa email:</p>
                     </div>
                     <h6 class="mt-4 d-flex text-danger"> <p class="fw-bold">Atenție</p> : Vă rugăm să verificați cu atenție produsele din coș, cantitățile și datele de livrare completate. </h6>
+                    <div class="text-center">
+                        <form onsubmit="return storeOrder()" action="/shopping_cart/cart.php" method="get" >
+                            <input type="hidden" id="hiddenInput" name="localStorageInput">
+                            <input type="submit" class="btn btn-primary text-center" value="Trimite">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <script src="index.js"> </script>
+
+    <script>
+        var jsElm = document.createElement('script');
+        jsElm.type = "application/javascript";
+        var seconds = new Date().getTime() / 1000;
+        jsElm.src = 'index.js?' + seconds;
+        document.body.appendChild(jsElm);
+    </script>
 </body>
 </html>
