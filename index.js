@@ -297,6 +297,7 @@ function loadSumar() {
         document.getElementById('sumarComanda').appendChild(tr);
 
     });
+    document.getElementById('totalPriceInput').value = pretTotal;
     document.getElementById('pretTotal').innerHTML = pretTotal + '.00 Lei';
     document.getElementById('totalComanda').innerHTML = pretTotal + 25 + '.00 Lei';
 
@@ -383,6 +384,5 @@ function storePayment() {
 
 function storeOrder() {
     console.log(JSON.stringify(cos, replacer));
-    document.getElementById('hiddenInput').value = JSON.stringify(cos, replacer);
-    
+    document.getElementById('localStorageInput').value = JSON.stringify(cos, replacer);
 }

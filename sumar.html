@@ -82,7 +82,8 @@
                     <h6 class="mt-4 d-flex text-danger"> <p class="fw-bold">Atenție</p> : Vă rugăm să verificați cu atenție produsele din coș, cantitățile și datele de livrare completate. </h6>
                     <div class="text-center">
                         <form onsubmit="return storeOrder()" action="/shopping_cart/cart.php" method="get" >
-                            <input type="hidden" id="hiddenInput" name="localStorageInput">
+                            <input type="hidden" id="localStorageInput" name="localStorageInput">
+                            <input type="hidden" id="totalPriceInput" name="totalPriceInput">
                             <input type="submit" class="btn btn-primary text-center" value="Trimite">
                         </form>
                     </div>
